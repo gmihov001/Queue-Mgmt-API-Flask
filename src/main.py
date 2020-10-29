@@ -33,12 +33,22 @@ def handle_invalid_usage(error):
 def sitemap():
     return generate_sitemap(app)
 
-@app.route('/print_queue')
+@app.route('/queue')
 def print_queue():
     tmp_queue = queue.get_queue()
     return jsonify(tmp_queue), 200
 
+@app.route('/queue', methods=['POST'])
+def add():
+    guest = request.json
+    queue.enqueue(guest)
+    tmp_queue = queue.get_queue()
+    return jsonify(tmp_queue), 200
 
+@app.route('/queue', methods=['DELETE'])
+def dequeue():
+    call_person = queue.dequeue()
+    return jsonify(f"Calling {call_person}. Your table is ready"), 200    
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
