@@ -49,7 +49,9 @@ def add():
 @app.route('/queue', methods=['DELETE'])
 def dequeue():
     call_person = queue.dequeue()
-    return jsonify(f"Calling {call_person}. Your table is ready"), 200    
+    phone = call_person['number']
+    send(body='Your table is ready', to=phone)
+    return jsonify(f"Calling {call_person['name']}.), 200    
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
