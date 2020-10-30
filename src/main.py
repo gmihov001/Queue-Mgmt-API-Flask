@@ -51,7 +51,7 @@ def dequeue():
     call_person = queue.dequeue()
     phone = call_person['number']
     send(body='Your table is ready', to=phone)
-    return jsonify(f"Calling {call_person['name']}.), 200    
+    return jsonify(f"Texted {call_person['name']} at {call_person['number']}."), 200    
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
