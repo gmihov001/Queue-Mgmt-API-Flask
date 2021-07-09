@@ -63,6 +63,7 @@ def add():
 @app.route('/queue', methods=['DELETE'])
 def dequeue():
     call_person = queue.dequeue()
+    print("call_person", call_person)
     phone = call_person['number']
     # send(body=f"{call_person['name']}, your table is ready!", to=phone)
     

@@ -6,10 +6,10 @@ class Queue:
 
     def enqueue(self, item):
         self.current_queue.insert(0, item)
-        pass
+        return self.current_queue
 
     def dequeue(self):
-        return self.current_queue.pop() 
+        return self.current_queue.pop()        
 
     def get_queue(self):
         return self.current_queue
