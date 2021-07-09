@@ -51,7 +51,13 @@ def add():
     guest = request.json
     queue.enqueue(guest)
     tmp_queue = queue.get_queue()
-    return jsonify(tmp_queue), 200
+    response = {
+        "added": f"{tmp_queue[0]} has been added to queue",
+        "current_queue": tmp_queue,
+        "queue_size": f"There are now {size} people in the queue"
+    }
+
+    return jsonify(response), 200
 
 @app.route('/queue', methods=['DELETE'])
 def dequeue():
