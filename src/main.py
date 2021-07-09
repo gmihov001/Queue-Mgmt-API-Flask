@@ -34,7 +34,7 @@ def handle_invalid_usage(error):
 def sitemap():
     return generate_sitemap(app)
 
-@app.route('/queue', methods="GET")
+@app.route('/queue', methods=["GET"])
 def print_queue():
     tmp_queue = queue.get_queue()
     return jsonify(tmp_queue), 200
