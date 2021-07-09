@@ -42,7 +42,7 @@ def print_queue():
     response = {
         "queue_size": f"There are {size} people in the queue",
         "queue": tmp_queue,
-        "next": f"Next in line is {tmp_queue[size - 1]}" if size else "No next in line"
+        "next": f"Next in line: {tmp_queue[size - 1]}" if size else "No next in line"
     }
     return jsonify(response), 200
 
@@ -58,6 +58,7 @@ def dequeue():
     call_person = queue.dequeue()
     phone = call_person['number']
     send(body=f"{call_person['name']}, your table is ready!", to=phone)
+    response = {}
     return jsonify(f"Texted {call_person['name']} at {call_person['number']}."), 200    
 
 # this only runs if `$ python src/main.py` is executed
