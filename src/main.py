@@ -51,6 +51,7 @@ def add():
     guest = request.json
     queue.enqueue(guest)
     tmp_queue = queue.get_queue()
+    size = queue.get_size()
     response = {
         "added": f"{tmp_queue[0]} has been added to queue",
         "current_queue": tmp_queue,
