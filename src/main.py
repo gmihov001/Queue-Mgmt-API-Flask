@@ -62,18 +62,24 @@ def add():
 
 @app.route('/queue', methods=['DELETE'])
 def dequeue():
-    call_person = queue.dequeue()
-    print("call_person", call_person)
-    phone = call_person['number']
-    # send(body=f"{call_person['name']}, your table is ready!", to=phone)
-    
-    tmp_queue = queue.get_queue()
-    size = queue.get_size()
-    response = {
-        "message": f"Texted {call_person['name']} at {call_person['number']}.",
-        "queue_size": f"There are now {size} people in the queue",
-        "next": f"Next in line: {tmp_queue[size - 1]}" if size else "No next in line"
-    }
+    response = {}
+    if queue.get_size():
+        call_person = queue.dequeue()
+        phone = call_person['number']
+        # send(body=f"{call_person['name']}, your table is ready!", to=phone)
+        
+        tmp_queue = queue.get_queue()
+        size = queue.get_size()
+        response = {
+            "message": f"Texted {call_person['name']} at {call_person['number']}.",
+            "queue_size": f"There are now {size} people in the queue",
+            "next": f"Next in line: {tmp_queue[size - 1]}" if size else "No next in line"
+        }
+    else: 
+        response = {
+            "message": "There are no people in the queue"
+        }   
+
     return jsonify(response), 200    
 
 # this only runs if `$ python src/main.py` is executed
