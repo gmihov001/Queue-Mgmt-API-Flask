@@ -14,5 +14,5 @@ class Queue:
     def get_queue(self):
         return self.current_queue
 
-    def size(self):
+    def get_size(self):
         return len(self.current_queue)       
