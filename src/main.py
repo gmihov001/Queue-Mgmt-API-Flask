@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, User
+from models import db, User, Guest
 from datastructures import Queue
 from sms import send
 
@@ -34,7 +34,7 @@ def handle_invalid_usage(error):
 def sitemap():
     return generate_sitemap(app)
 
-@app.route('/queue')
+@app.route('/queue', methods="GET")
 def print_queue():
     tmp_queue = queue.get_queue()
     return jsonify(tmp_queue), 200
@@ -50,7 +50,7 @@ def add():
 def dequeue():
     call_person = queue.dequeue()
     phone = call_person['number']
-    send(body='Your table is ready', to=phone)
+    send(body=f"{call_person['name']}, your table is ready!", to=phone)
     return jsonify(f"Texted {call_person['name']} at {call_person['number']}."), 200    
 
 # this only runs if `$ python src/main.py` is executed
