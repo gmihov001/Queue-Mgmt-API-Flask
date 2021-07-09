@@ -37,7 +37,14 @@ def sitemap():
 @app.route('/queue', methods=["GET"])
 def print_queue():
     tmp_queue = queue.get_queue()
-    return jsonify(tmp_queue), 200
+    size = queue.get_size()
+
+    response = {
+        "queue_size": f"There are {size} people in the queue",
+        "queue": tmp_queue,
+        "next": f"Next in line is {tmp_queue[size - 1]}" if size else "No guests in line"
+    }
+    return jsonify(response), 200
 
 @app.route('/queue', methods=['POST'])
 def add():
