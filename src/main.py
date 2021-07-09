@@ -42,7 +42,7 @@ def print_queue():
     response = {
         "queue_size": f"There are {size} people in the queue",
         "queue": tmp_queue,
-        "next": f"Next in line is {tmp_queue[size - 1]}" if size else "No guests in line"
+        "next": f"Next in line is {tmp_queue[size - 1]}" if size else "No next in line"
     }
     return jsonify(response), 200
 
